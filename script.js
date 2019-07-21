@@ -58,6 +58,17 @@ class Chat {
     sendMessage(message) {
         this.messages.push(message);
         document.querySelector("#messages").appendChild(message.renderHTML());
+        this.renderMemberList();
+    }
+
+    renderMemberList() {
+        const memberListElement = document.querySelector("#members");
+        const newChildren = this.members.map(member => {
+            const li = document.createElement("li");
+            li.textContent = member;
+            return li;
+        });
+        memberListElement.replaceChildren(...newChildren);
     }
 
     get wordsPerMember() {
