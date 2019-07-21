@@ -14,6 +14,19 @@
             liElement.innerHTML = this.textBody;
             return liElement
         }
+
+        static fromJSON(jsonObj) {
+            let newMessage;
+            const {textBody, sender} = jsonObj;
+
+            if (sender === undefined) {
+                newMessage = new SystemMessage(textBody);
+            } else {
+                newMessage = new UserMessage(textBody, sender);
+            }
+
+            return newMessage;
+        }
     }
 
     class SystemMessage extends Message {
@@ -51,7 +64,7 @@
             this.messages = [];
         }
 
-        sendMessage(message) {
+        async sendMessage(message) {
             const {sender} = message;
             const isNewMember =
                 !(message instanceof SystemMessage) &&
@@ -61,15 +74,26 @@
                 this.sendMessage(new SystemMessage(`${sender} has entered the chat`))
             }
 
-            this.messages.push(message);
-
-            fetch("api/messages", {
+            await fetch("api/messages", {
                 method: "POST",
                 headers: new Headers({"Content-Type": "application/json"}),
                 body: JSON.stringify(message)
             });
 
-            document.querySelector("#messages").appendChild(message.renderHTML());
+            this.updateMessages();
+        }
+
+        async updateMessages() {
+            const response = await fetch("api/messages", {method: "GET"});
+            const serverMessages = await response.json();
+            const newMessages = serverMessages.slice(this.messages.length);
+
+            newMessages.forEach((messageObj) => {
+                const message = Message.fromJSON(messageObj);
+                this.messages.push(message);
+                document.querySelector("#messages").appendChild(message.renderHTML());
+            });
+
             this.renderMemberList();
         }
 
