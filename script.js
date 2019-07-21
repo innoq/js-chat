@@ -3,11 +3,13 @@ const TYPE_USER = "user";
 
 const createMessage = (textBody, type, sender) => ({textBody, type, sender, render: renderMessage});
 
-const m1 = createMessage("Lisa enters the chat", TYPE_SYSTEM);
-const m2 = createMessage("Paul enters the chat", TYPE_SYSTEM);
-const m3 = createMessage("Hello!", TYPE_USER, "Paul");
-const m4 = createMessage("Hello Paul! How are you?", TYPE_USER, "Lisa");
-const m5 = createMessage("Hi Lisa, i'm fine, thanks. How are you?", TYPE_USER, "Paul");
+const messages = [
+    createMessage("Lisa enters the chat", TYPE_SYSTEM),
+    createMessage("Paul enters the chat", TYPE_SYSTEM),
+    createMessage("Hello!", TYPE_USER, "Paul"),
+    createMessage("Hello Paul! How are you?", TYPE_USER, "Lisa"),
+    createMessage("Hi Lisa, i'm fine, thanks. How are you?", TYPE_USER, "Paul")
+];
 
 function renderMessage() {
     let formattedMessage = "";
@@ -26,8 +28,8 @@ function sendMessage(message) {
     message.render && console.log(message.render());
 }
 
-sendMessage(m1);
-sendMessage(m2);
-sendMessage(m3);
-sendMessage(m4);
-sendMessage(m5);
+sendMessage(messages[0]);
+sendMessage(messages[1]);
+sendMessage(messages[2]);
+sendMessage(messages[3]);
+sendMessage(messages[4]);
