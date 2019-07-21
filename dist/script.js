@@ -62,6 +62,8 @@
     class Chat {
         constructor() {
             this.messages = [];
+            this.updateMessages();
+            setInterval(() => this.updateMessages(), 1000);
         }
 
         async sendMessage(message) {
