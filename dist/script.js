@@ -38,4 +38,16 @@
 
     const memberNames = Array.from(new Set(membersOfUserMsgs));
     console.log("Member names: ", memberNames);
+
+    const wordsPerMember = messages.reduce((wordsPerMember, message) => {
+        const {sender, textBody} = message;
+        const wordCount = textBody.split(" ").length;
+        sender && (wordsPerMember[sender] ?
+            wordsPerMember[sender] += wordCount :
+            wordsPerMember[sender] = wordCount);
+
+        return wordsPerMember;
+    }, {});
+
+    console.log("Words per Member: ", wordsPerMember);
 })();
