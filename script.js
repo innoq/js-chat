@@ -48,3 +48,14 @@ const wordsPerMember = messages.reduce((wordsPerMember, message) => {
 }, {});
 
 console.log("Words per Member: ", wordsPerMember);
+
+
+const memberNames2 = messages.reduce((memberNames, message) => {
+    const {sender} = message;
+    if (sender !== undefined && memberNames.indexOf(sender) === -1) {
+        memberNames.push(sender)
+    }
+    return memberNames;
+}, []);
+
+console.log("Members names: ", memberNames2);
