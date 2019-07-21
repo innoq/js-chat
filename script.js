@@ -94,6 +94,12 @@ class Chat {
     }
 }
 
+function delay(milliseconds) {
+    return new Promise((resolve) => {
+        setTimeout(resolve,milliseconds);
+    });
+}
+
 window.addEventListener("load", () => {
     // init code
     const chat = new Chat();
@@ -109,9 +115,9 @@ window.addEventListener("load", () => {
         const userName = userNameInput.value;
         const messageText = messageInput.value;
 
-        setTimeout(() => {
-            chat.sendMessage(new UserMessage(messageText, userName))
-        }, 1000);
+        delay(1000).then(() => {
+            chat.sendMessage(new UserMessage(messageText, userName));
+        });
 
         messageInput.value = "";
     });
