@@ -106,7 +106,7 @@ window.addEventListener("load", () => {
 
     const messageForm = document.querySelector("#messageForm");
 
-    messageForm.addEventListener("submit", (event) => {
+    messageForm.addEventListener("submit", async (event) => {
         event.preventDefault();
 
         const userNameInput = document.querySelector("#username");
@@ -115,10 +115,9 @@ window.addEventListener("load", () => {
         const userName = userNameInput.value;
         const messageText = messageInput.value;
 
-        delay(1000).then(() => {
-            chat.sendMessage(new UserMessage(messageText, userName));
-        });
-
         messageInput.value = "";
+
+        await delay(1000);
+        chat.sendMessage(new UserMessage(messageText, userName));
     });
 });
