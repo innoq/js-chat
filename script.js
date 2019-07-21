@@ -89,16 +89,19 @@ window.addEventListener("load", () => {
     // init code
     const chat = new Chat();
 
-    const initialMessages = [
-        new SystemMessage("Lisa enters the chat"),
-        new SystemMessage("Paul enters the chat"),
-        new UserMessage("Hello!", "Paul"),
-        new UserMessage("Hello Paul! How are you?", "Lisa"),
-        new UserMessage("Hi Lisa, i'm fine, thanks. How are you?", "Paul")
-    ];
+    const messageForm = document.querySelector("#messageForm");
 
-    initialMessages.forEach(message => chat.sendMessage(message));
+    messageForm.addEventListener("submit", (event) => {
+        event.preventDefault();
 
-    console.log("Member names: ", chat.members);
-    console.log("Words per Member: ", chat.wordsPerMember);
+        const userNameInput = document.querySelector("#username");
+        const messageInput = document.querySelector("#message");
+
+        const userName = userNameInput.value;
+        const messageText = messageInput.value;
+
+        chat.sendMessage(new UserMessage(messageText, userName));
+
+        messageInput.value = "";
+    });
 });
