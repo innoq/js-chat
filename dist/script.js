@@ -28,7 +28,47 @@
     }
 
 
-    const messages = [
+    class Chat {
+        constructor() {
+            this.messages = [];
+        }
+
+        sendMessage(message) {
+            this.messages.push(message);
+            console.log(message);
+            console.log(message.render());
+        }
+
+        get wordsPerMember() {
+            const wordsPerMember = this.messages.reduce((wordsPerMember, message) => {
+                const {sender, textBody} = message;
+                const wordCount = textBody.split(" ").length;
+                sender && (wordsPerMember[sender] ?
+                    wordsPerMember[sender] += wordCount :
+                    wordsPerMember[sender] = wordCount);
+
+                return wordsPerMember;
+            }, {});
+
+            return wordsPerMember;
+        }
+
+        get members() {
+            const membersOfUserMsgs = this.messages
+                .map(message => message.sender)
+                .filter(member => member !== undefined);
+
+            const distinctMembers = Array.from(new Set(membersOfUserMsgs));
+
+            return distinctMembers;
+        }
+    }
+
+
+    // init code
+    const chat = new Chat();
+
+    const initialMessages = [
         new SystemMessage("Lisa enters the chat"),
         new SystemMessage("Paul enters the chat"),
         new UserMessage("Hello!", "Paul"),
@@ -36,29 +76,8 @@
         new UserMessage("Hi Lisa, i'm fine, thanks. How are you?", "Paul")
     ];
 
-    function sendMessage(message) {
-        console.log(message);
-        message.render && console.log(message.render());
-    }
+    initialMessages.forEach(message => chat.sendMessage(message));
 
-    messages.forEach(message => sendMessage(message));
-
-    const membersOfUserMsgs = messages
-        .map(message => message.sender)
-        .filter(member => member !== undefined);
-
-    const memberNames = Array.from(new Set(membersOfUserMsgs));
-    console.log("Member names: ", memberNames);
-
-    const wordsPerMember = messages.reduce((wordsPerMember, message) => {
-        const {sender, textBody} = message;
-        const wordCount = textBody.split(" ").length;
-        sender && (wordsPerMember[sender] ?
-            wordsPerMember[sender] += wordCount :
-            wordsPerMember[sender] = wordCount);
-
-        return wordsPerMember;
-    }, {});
-
-    console.log("Words per Member: ", wordsPerMember);
+    console.log("Member names: ", chat.members);
+    console.log("Words per Member: ", chat.wordsPerMember);
 })();
