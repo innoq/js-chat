@@ -30,11 +30,12 @@
         message.render && console.log(message.render());
     }
 
-    /*
-    for (let i = 0; i < messages.length; i++) {
-        sendMessage(messages[i]);
-    }
-    */
-
     messages.forEach(message => sendMessage(message));
+
+    const membersOfUserMsgs = messages
+        .map(message => message.sender)
+        .filter(member => member !== undefined);
+
+    const memberNames = Array.from(new Set(membersOfUserMsgs));
+    console.log("Member names: ", memberNames);
 })();
