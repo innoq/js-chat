@@ -1,41 +1,50 @@
-const TYPE_SYSTEM = "system";
-const TYPE_USER = "user";
+(function () {
 
-const m1 = {
-    textBody: "Lisa enters the chat",
-    type: TYPE_SYSTEM
-};
+    const TYPE_SYSTEM = "system";
+    const TYPE_USER = "user";
 
-const m2 = {
-    textBody: "Paul enters the chat",
-    type: TYPE_SYSTEM
-};
+    const m1 = {
+        textBody: "Lisa enters the chat",
+        type: TYPE_SYSTEM
+    };
 
-const m3 = {
-    sender: "Paul",
-    textBody: "Hello!",
-    type: TYPE_USER
-};
+    const m2 = {
+        textBody: "Paul enters the chat",
+        type: TYPE_SYSTEM
+    };
 
-const m4 = {
-    sender: "Lisa",
-    textBody: "Hello Paul! How are you?",
-    type: TYPE_USER
-};
+    const m3 = {
+        sender: "Paul",
+        textBody: "Hello!",
+        type: TYPE_USER
+    };
 
-const m5 = {
-    sender: "Paul",
-    textBody: "Hi Lisa, i'm fine, thanks. How are you?",
-    type: TYPE_USER
-};
+    const m4 = {
+        sender: "Lisa",
+        textBody: "Hello Paul! How are you?",
+        type: TYPE_USER
+    };
 
-function sendMessage(message) {
-    let formattedMessage = "";
+    const m5 = {
+        sender: "Paul",
+        textBody: "Hi Lisa, i'm fine, thanks. How are you?",
+        type: TYPE_USER
+    };
 
-    if (message.type === TYPE_SYSTEM) {
-        formattedMessage = "..." + message.textBody + "...";
-    } else {
-        formattedMessage = `${message.sender}: ${message.textBody}`;
+    function sendMessage(message) {
+        let formattedMessage = "";
+
+        if (message.type === TYPE_SYSTEM) {
+            formattedMessage = "..." + message.textBody + "...";
+        } else {
+            formattedMessage = `${message.sender}: ${message.textBody}`;
+        }
+        console.log(formattedMessage);
     }
-    console.log(formattedMessage);
-}
+
+    sendMessage(m1);
+    sendMessage(m2);
+    sendMessage(m3);
+    sendMessage(m4);
+    sendMessage(m5);
+})();
