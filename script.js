@@ -28,8 +28,10 @@ function sendMessage(message) {
     message.render && console.log(message.render());
 }
 
-sendMessage(messages[0]);
-sendMessage(messages[1]);
-sendMessage(messages[2]);
-sendMessage(messages[3]);
-sendMessage(messages[4]);
+/*
+for (let i = 0; i < messages.length; i++) {
+    sendMessage(messages[i]);
+}
+*/
+
+messages.forEach(message => sendMessage(message));
