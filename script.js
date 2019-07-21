@@ -52,6 +52,12 @@ class Chat {
     sendMessage(message) {
         this.messages.push(message);
         document.querySelector("#messages").appendChild(message.renderHTML());
+        this.renderMemberList();
+    }
+
+    renderMemberList() {
+        const memberListElement = document.querySelector("#members");
+        memberListElement.innerHTML = this.members.map(member => `<li>${member}</li>`).join("");
     }
 
     get wordsPerMember() {
