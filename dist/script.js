@@ -8,11 +8,23 @@
         render() {
             return this.textBody;
         }
+
+        renderHTML() {
+            const liElement = document.createElement("li");
+            liElement.innerHTML = this.textBody;
+            return liElement
+        }
     }
 
     class SystemMessage extends Message {
         render() {
             return "..." + this.textBody + "...";
+        }
+
+        renderHTML() {
+            const liElement = document.createElement("li");
+            liElement.innerHTML = `<em> ... ${this.textBody} ... </em>`;
+            return liElement;
         }
     }
 
@@ -25,6 +37,12 @@
         render() {
             return `${this.sender}: ${this.textBody}`;
         }
+
+        renderHTML() {
+            const liElement = document.createElement("li");
+            liElement.innerHTML = `<b>${this.sender}</b>: ${this.textBody}`;
+            return liElement;
+        }
     }
 
 
@@ -35,8 +53,7 @@
 
         sendMessage(message) {
             this.messages.push(message);
-            console.log(message);
-            console.log(message.render());
+            document.querySelector("#messages").appendChild(message.renderHTML());
         }
 
         get wordsPerMember() {
@@ -64,20 +81,21 @@
         }
     }
 
+    window.addEventListener("load", () => {
+        // init code
+        const chat = new Chat();
 
-    // init code
-    const chat = new Chat();
+        const initialMessages = [
+            new SystemMessage("Lisa enters the chat"),
+            new SystemMessage("Paul enters the chat"),
+            new UserMessage("Hello!", "Paul"),
+            new UserMessage("Hello Paul! How are you?", "Lisa"),
+            new UserMessage("Hi Lisa, i'm fine, thanks. How are you?", "Paul")
+        ];
 
-    const initialMessages = [
-        new SystemMessage("Lisa enters the chat"),
-        new SystemMessage("Paul enters the chat"),
-        new UserMessage("Hello!", "Paul"),
-        new UserMessage("Hello Paul! How are you?", "Lisa"),
-        new UserMessage("Hi Lisa, i'm fine, thanks. How are you?", "Paul")
-    ];
+        initialMessages.forEach(message => chat.sendMessage(message));
 
-    initialMessages.forEach(message => chat.sendMessage(message));
-
-    console.log("Member names: ", chat.members);
-    console.log("Words per Member: ", chat.wordsPerMember);
+        console.log("Member names: ", chat.members);
+        console.log("Words per Member: ", chat.wordsPerMember);
+    });
 })();
