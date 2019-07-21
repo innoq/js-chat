@@ -1,14 +1,34 @@
-const TYPE_SYSTEM = "system";
-const TYPE_USER = "user";
+function Message(textBody) {
+    this.textBody = textBody;
+}
 
-const createMessage = (textBody, type, sender) => ({textBody, type, sender, render: renderMessage});
+Message.prototype.render = function () {
+    return this.textBody;
+};
+
+
+function SystemMessage(textBody) {
+    Message.call(this, textBody);
+}
+
+SystemMessage.prototype = Object.create(Message.prototype); // What happens when using "new Message() "instead?
+SystemMessage.prototype.constructor = SystemMessage;
+
+
+function UserMessage(textBody, sender) {
+    Message.call(this, textBody); // Why not just "Message(textBody)"?
+    this.sender = sender;
+}
+
+UserMessage.prototype = Object.create(Message.prototype);
+UserMessage.prototype.constructor = UserMessage;
 
 const messages = [
-    createMessage("Lisa enters the chat", TYPE_SYSTEM),
-    createMessage("Paul enters the chat", TYPE_SYSTEM),
-    createMessage("Hello!", TYPE_USER, "Paul"),
-    createMessage("Hello Paul! How are you?", TYPE_USER, "Lisa"),
-    createMessage("Hi Lisa, i'm fine, thanks. How are you?", TYPE_USER, "Paul")
+    new SystemMessage("Lisa enters the chat"),
+    new SystemMessage("Paul enters the chat"),
+    new UserMessage("Hello!", "Paul"),
+    new UserMessage("Hello Paul! How are you?", "Lisa"),
+    new UserMessage("Hi Lisa, i'm fine, thanks. How are you?", "Paul")
 ];
 
 function renderMessage() {
@@ -48,14 +68,3 @@ const wordsPerMember = messages.reduce((wordsPerMember, message) => {
 }, {});
 
 console.log("Words per Member: ", wordsPerMember);
-
-
-const memberNames2 = messages.reduce((memberNames, message) => {
-    const {sender} = message;
-    if (sender !== undefined && memberNames.indexOf(sender) === -1) {
-        memberNames.push(sender)
-    }
-    return memberNames;
-}, []);
-
-console.log("Members names: ", memberNames2);
