@@ -39,9 +39,3 @@ function sendMessage(message) {
     }
     console.log(formattedMessage);
 }
-
-sendMessage(m1);
-sendMessage(m2);
-sendMessage(m3);
-sendMessage(m4);
-sendMessage(m5);
