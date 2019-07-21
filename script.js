@@ -14,6 +14,9 @@ function SystemMessage(textBody) {
 SystemMessage.prototype = Object.create(Message.prototype); // What happens when using "new Message() "instead?
 SystemMessage.prototype.constructor = SystemMessage;
 
+SystemMessage.prototype.render = function () {
+    return "..." + this.textBody + "...";
+};
 
 function UserMessage(textBody, sender) {
     Message.call(this, textBody); // Why not just "Message(textBody)"?
@@ -23,6 +26,11 @@ function UserMessage(textBody, sender) {
 UserMessage.prototype = Object.create(Message.prototype);
 UserMessage.prototype.constructor = UserMessage;
 
+UserMessage.prototype.render = function () {
+    return `${this.sender}: ${this.textBody}`;
+};
+
+
 const messages = [
     new SystemMessage("Lisa enters the chat"),
     new SystemMessage("Paul enters the chat"),
@@ -30,18 +38,6 @@ const messages = [
     new UserMessage("Hello Paul! How are you?", "Lisa"),
     new UserMessage("Hi Lisa, i'm fine, thanks. How are you?", "Paul")
 ];
-
-function renderMessage() {
-    let formattedMessage = "";
-
-    if (this.type === TYPE_SYSTEM) {
-        formattedMessage = "..." + this.textBody + "...";
-    } else {
-        formattedMessage = `${this.sender}: ${this.textBody}`;
-    }
-
-    return formattedMessage;
-}
 
 function sendMessage(message) {
     console.log(message);
