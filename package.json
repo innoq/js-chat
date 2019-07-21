@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/innoq/js-chat/issues"
   },
-  "homepage": "https://github.com/innoq/js-chat#readme"
+  "homepage": "https://github.com/innoq/js-chat#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
