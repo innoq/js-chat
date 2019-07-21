@@ -52,6 +52,15 @@
         }
 
         sendMessage(message) {
+            const {sender} = message;
+            const isNewMember =
+                !(message instanceof SystemMessage) &&
+                (this.members.indexOf(sender) === -1);
+
+            if (isNewMember) {
+                this.sendMessage(new SystemMessage(`${sender} has entered the chat`))
+            }
+
             this.messages.push(message);
             document.querySelector("#messages").appendChild(message.renderHTML());
             this.renderMemberList();
