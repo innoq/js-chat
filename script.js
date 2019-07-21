@@ -1,34 +1,29 @@
-function Message(textBody) {
-    this.textBody = textBody;
+class Message {
+    constructor(textBody) {
+        this.textBody = textBody;
+    }
+
+    render() {
+        return this.textBody;
+    }
 }
 
-Message.prototype.render = function () {
-    return this.textBody;
-};
-
-
-function SystemMessage(textBody) {
-    Message.call(this, textBody);
+class SystemMessage extends Message {
+    render() {
+        return "..." + this.textBody + "...";
+    }
 }
 
-SystemMessage.prototype = Object.create(Message.prototype); // What happens when using "new Message() "instead?
-SystemMessage.prototype.constructor = SystemMessage;
+class UserMessage extends Message {
+    constructor(textBody, sender) {
+        super(textBody);
+        this.sender = sender;
+    }
 
-SystemMessage.prototype.render = function () {
-    return "..." + this.textBody + "...";
-};
-
-function UserMessage(textBody, sender) {
-    Message.call(this, textBody); // Why not just "Message(textBody)"?
-    this.sender = sender;
+    render() {
+        return `${this.sender}: ${this.textBody}`;
+    }
 }
-
-UserMessage.prototype = Object.create(Message.prototype);
-UserMessage.prototype.constructor = UserMessage;
-
-UserMessage.prototype.render = function () {
-    return `${this.sender}: ${this.textBody}`;
-};
 
 
 const messages = [
