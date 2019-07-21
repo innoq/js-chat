@@ -41,12 +41,13 @@ function renderMessage(message) {
     return formattedMessage;
 }
 
-function sendMessage(message) {
-    console.log(renderMessage(message));
+function sendMessage(message, renderFunction) {
+    console.log(message);
+    renderFunction && console.log(renderFunction(message));
 }
 
-sendMessage(m1);
-sendMessage(m2);
-sendMessage(m3);
-sendMessage(m4);
-sendMessage(m5);
+sendMessage(m1, renderMessage);
+sendMessage(m2, renderMessage);
+sendMessage(m3, renderMessage);
+sendMessage(m4, renderMessage);
+sendMessage(m5, renderMessage);
