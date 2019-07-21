@@ -28,3 +28,20 @@ const m5 = {
     textBody: "Hi Lisa, i'm fine, thanks. How are you?",
     type: TYPE_USER
 };
+
+function sendMessage(message) {
+    let formattedMessage = "";
+
+    if (message.type === TYPE_SYSTEM) {
+        formattedMessage = "..." + message.textBody + "...";
+    } else {
+        formattedMessage = `${message.sender}: ${message.textBody}`;
+    }
+    console.log(formattedMessage);
+}
+
+sendMessage(m1);
+sendMessage(m2);
+sendMessage(m3);
+sendMessage(m4);
+sendMessage(m5);
