@@ -31,7 +31,7 @@
         type: TYPE_USER
     };
 
-    function sendMessage(message) {
+    function renderMessage(message) {
         let formattedMessage = "";
 
         if (message.type === TYPE_SYSTEM) {
@@ -39,7 +39,12 @@
         } else {
             formattedMessage = `${message.sender}: ${message.textBody}`;
         }
-        console.log(formattedMessage);
+
+        return formattedMessage;
+    }
+
+    function sendMessage(message) {
+        console.log(renderMessage(message));
     }
 
     sendMessage(m1);
