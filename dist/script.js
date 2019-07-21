@@ -62,6 +62,13 @@
             }
 
             this.messages.push(message);
+
+            fetch("api/messages", {
+                method: "POST",
+                headers: new Headers({"Content-Type": "application/json"}),
+                body: JSON.stringify(message)
+            });
+
             document.querySelector("#messages").appendChild(message.renderHTML());
             this.renderMemberList();
         }
@@ -96,19 +103,13 @@
         }
     }
 
-    function delay(milliseconds) {
-        return new Promise((resolve) => {
-            setTimeout(resolve,milliseconds);
-        });
-    }
-
     window.addEventListener("load", () => {
         // init code
         const chat = new Chat();
 
         const messageForm = document.querySelector("#messageForm");
 
-        messageForm.addEventListener("submit", async (event) => {
+        messageForm.addEventListener("submit", (event) => {
             event.preventDefault();
 
             const userNameInput = document.querySelector("#username");
@@ -118,8 +119,6 @@
             const messageText = messageInput.value;
 
             messageInput.value = "";
-
-            await delay(1000);
             chat.sendMessage(new UserMessage(messageText, userName));
         });
     });
