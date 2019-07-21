@@ -111,7 +111,9 @@
             const userName = userNameInput.value;
             const messageText = messageInput.value;
 
-            chat.sendMessage(new UserMessage(messageText, userName));
+            setTimeout(() => {
+                chat.sendMessage(new UserMessage(messageText, userName))
+            }, 1000);
 
             messageInput.value = "";
         });
