@@ -53,7 +53,11 @@ export default class Chat {
     }
 
     get members() {
-        const membersOfUserMsgs = this.messages
+        return Chat.extractMembers(this.messages);
+    }
+
+    static extractMembers(messages) {
+        const membersOfUserMsgs = messages
             .map(message => message.sender)
             .filter(member => member !== undefined);
 
