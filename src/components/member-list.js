@@ -3,17 +3,24 @@ import Chat from "../modules/chat.js";
 
 class MemberList extends HTMLElement {
     connectedCallback() {
-        const headerElement = document.createElement("h2");
-        headerElement.innerHTML = "Members";
+        this.headerElement = document.createElement("h2");
+        this.headerElement.innerHTML = "Members";
 
         this.ulElement = document.createElement("ul");
         this.ulElement.innerHTML = "<li>Dummy</li>";
 
-        this.appendChild(headerElement);
+        this.appendChild(this.headerElement);
         this.appendChild(this.ulElement);
 
         this.updateMembers();
-        setInterval(() => this.updateMembers(), 1000);
+        this.updateTimer = setInterval(() => this.updateMembers(), 1000);
+    }
+
+    disconnectedCallback() {
+        clearInterval(this.updateTimer);
+
+        this.headerElement.remove();
+        this.ulElement.remove();
     }
 
     async updateMembers() {
