@@ -1,5 +1,6 @@
 import Chat from "./modules/chat.js";
 import {UserMessage} from "./modules/messages.js";
+import "./components/member-list.js";
 
 window.addEventListener("load", () => {
     // init code
