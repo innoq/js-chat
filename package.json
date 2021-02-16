@@ -9,7 +9,7 @@
   "scripts": {
     "start": "npm-run-all --parallel serve watch",
     "serve": "node server/index.js",
-    "build": "rollup src/script.js -o dist/bundle.js -f iife",
+    "build": "rollup src/script.js -o dist/bundle.js",
     "watch": "npm run build -- -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
