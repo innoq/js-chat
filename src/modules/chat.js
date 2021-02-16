@@ -1,3 +1,4 @@
+import { getMessages } from "../services/messages.js";
 import { Message, SystemMessage } from "./messages.js";
 
 export default class Chat {
@@ -29,12 +30,10 @@ export default class Chat {
     }
 
     async updateMessages() {
-        const response = await fetch("api/messages", { method: "GET" });
-        const serverMessages = await response.json();
-        const newMessages = serverMessages.slice(this.messages.length);
+        const messages = await getMessages();
+        const newMessages = messages.slice(this.messages.length);
 
-        newMessages.forEach((messageObj) => {
-            const message = Message.fromJSON(messageObj);
+        newMessages.forEach((message) => {
             this.messages.push(message);
             document
                 .querySelector("#messages")
