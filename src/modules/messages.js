@@ -10,12 +10,12 @@ export class Message {
     renderHTML() {
         const liElement = document.createElement("li");
         liElement.innerHTML = this.textBody;
-        return liElement
+        return liElement;
     }
 
     static fromJSON(jsonObj) {
         let newMessage;
-        const {textBody, sender} = jsonObj;
+        const { textBody, sender } = jsonObj;
 
         if (sender === undefined) {
             newMessage = new SystemMessage(textBody);

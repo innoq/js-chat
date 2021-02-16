@@ -1,4 +1,4 @@
-import {getMessages} from "../services/messages.js";
+import { getMessages } from "../services/messages.js";
 import Chat from "../modules/chat.js";
 
 class MemberList extends HTMLElement {
@@ -26,7 +26,9 @@ class MemberList extends HTMLElement {
     async updateMembers() {
         const messages = await getMessages();
         const members = Chat.extractMembers(messages);
-        this.ulElement.innerHTML = members.map(member => `<li>${member}</li>`).join("");
+        this.ulElement.innerHTML = members
+            .map((member) => `<li>${member}</li>`)
+            .join("");
     }
 }
 
