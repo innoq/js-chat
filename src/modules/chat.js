@@ -1,4 +1,4 @@
-import { getMessages } from "../services/messages.js";
+import { createMessage, getMessages } from "../services/messages.js";
 import { Message, SystemMessage } from "./messages.js";
 
 export default class Chat {
@@ -19,11 +19,7 @@ export default class Chat {
             );
         }
 
-        await fetch("api/messages", {
-            method: "POST",
-            headers: new Headers({ "Content-Type": "application/json" }),
-            body: JSON.stringify(message),
-        });
+        await createMessage(message);
 
         this.updateMessages();
     }
