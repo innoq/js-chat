@@ -3,6 +3,7 @@ import Chat from "../modules/chat.js";
 
 class MemberList extends HTMLElement {
     connectedCallback() {
+        this.members = new Set();
         this.headerElement = document.createElement("h2");
         this.headerElement.textContent = "Members";
 
@@ -21,12 +22,14 @@ class MemberList extends HTMLElement {
 
     async updateMembers() {
         const messages = await getMessages();
-        const members = Chat.extractMembers(messages);
-        this.textContent = "";
-        members.forEach((member) => {
-            const li = document.createElement("li");
-            li.textContent = member;
-            this.appendChild(li);
+        const newMemberList = Chat.extractMembers(messages);
+        newMemberList.forEach((member) => {
+            if (!this.members.has(member)) {
+                this.members.add(member);
+                const li = document.createElement("li");
+                li.textContent = member;
+                this.appendChild(li);
+            }
         });
     }
 }
