@@ -9,7 +9,7 @@ export class Message {
 
     renderHTML() {
         const liElement = document.createElement("li");
-        liElement.innerHTML = this.textBody;
+        liElement.textContent = this.textBody;
         return liElement;
     }
 
@@ -34,7 +34,9 @@ export class SystemMessage extends Message {
 
     renderHTML() {
         const liElement = document.createElement("li");
-        liElement.innerHTML = `<em> ... ${this.textBody} ... </em>`;
+        const emElement = document.createElement("em");
+        emElement.textContent = `...${this.textBody}...`;
+        liElement.appendChild(emElement);
         return liElement;
     }
 }
@@ -51,7 +53,10 @@ export class UserMessage extends Message {
 
     renderHTML() {
         const liElement = document.createElement("li");
-        liElement.innerHTML = `<b>${this.sender}</b>: ${this.textBody}`;
+        const strongElement = document.createElement("strong");
+        strongElement.textContent = `${this.sender}:`;
+        liElement.appendChild(strongElement);
+        liElement.appendChild(document.createTextNode(` ${this.textBody}`));
         return liElement;
     }
 }
