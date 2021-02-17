@@ -1,36 +1,21 @@
-import { getMessages } from "../services/messages.js";
-import Chat from "../modules/chat.js";
+import { subscribeToNewMessages } from "./chat-app.js";
 
 class MemberList extends HTMLElement {
     connectedCallback() {
         this.members = new Set();
-        this.headerElement = document.createElement("h2");
-        this.headerElement.textContent = "Members";
 
-        this.ulElement = document.createElement("ul");
-
-        this.appendChild(this.headerElement);
-        this.appendChild(this.ulElement);
-
-        this.updateMembers();
-        this.updateTimer = setInterval(this.updateMembers.bind(this), 1000);
-    }
-
-    disconnectedCallback() {
-        clearInterval(this.updateTimer);
-    }
-
-    async updateMembers() {
-        const messages = await getMessages();
-        const newMemberList = Chat.extractMembers(messages);
-        newMemberList.forEach((member) => {
-            if (!this.members.has(member)) {
-                this.members.add(member);
-                const li = document.createElement("li");
-                li.textContent = member;
-                this.appendChild(li);
-            }
+        subscribeToNewMessages((message) => {
+            this.updateMembersWith(message);
         });
+    }
+
+    async updateMembersWith(message) {
+        if (message.sender && !this.members.has(message.sender)) {
+            this.members.add(message.sender);
+            const li = document.createElement("li");
+            li.textContent = message.sender;
+            this.querySelector("ul").appendChild(li);
+        }
     }
 }
 

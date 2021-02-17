@@ -6,18 +6,31 @@
     <script type="module" src="bundle.js"></script>
 </head>
 <body>
-    <h1>JS-Chat</h1>
-    <member-list></member-list>
-    <h2>Your Message</h2>
-    <form id="messageForm">
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username" maxlength="10" size="10"/>
-        <label for="message">Message:</label>
-        <input type="text" name="message" id="message" size="60"/>
-        <input type="submit"/>
-    </form>
-    <h2>Messages</h2>
-    <ol id="messages">
-    </ol>
+    <chat-app>
+        <h1>JS-Chat</h1>
+        <member-list>
+            <h2>Members</h2>
+
+            <ul></ul>
+        </member-list>
+
+        <message-form>
+            <h2>Your Message</h2>
+
+            <form>
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" maxlength="10" size="10"/>
+                <label for="message">Message:</label>
+                <input type="text" name="message" id="message" size="60"/>
+                <input type="submit"/>
+            </form>
+        </message-form>
+
+        <message-list>
+            <h2>Messages</h2>
+
+            <ol></ol>
+        </message-list>
+    </chat-app>
 </body>
 </html>
