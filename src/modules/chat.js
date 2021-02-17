@@ -36,6 +36,7 @@ export default class Chat {
         });
     }
 
+    // TODO: this is unused
     get wordsPerMember() {
         const wordsPerMember = this.messages.reduce(
             (wordsPerMember, message) => {
