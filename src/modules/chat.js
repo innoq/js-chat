@@ -11,8 +11,7 @@ export default class Chat {
     async sendMessage(message) {
         const { sender } = message;
         const isNewMember =
-            !(message instanceof SystemMessage) &&
-            this.members.indexOf(sender) === -1;
+            !(message instanceof SystemMessage) && !this.members.has(sender);
 
         if (isNewMember) {
             this.sendMessage(
@@ -68,8 +67,6 @@ export default class Chat {
             .map((message) => message.sender)
             .filter((member) => member !== undefined);
 
-        const distinctMembers = Array.from(new Set(membersOfUserMsgs));
-
-        return distinctMembers;
+        return new Set(membersOfUserMsgs);
     }
 }
