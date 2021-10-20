@@ -20,7 +20,6 @@ Hint: You can read and write the value of an input element using `inputElement.v
 
 3. Whenever a message is sent by a new member,
     1. update the HTML member list with the correct set of members  
-    Hint: To set `innerHTML` from an array, `array.map()` and `array.join("")` make life easy.
     2. send a `SystemMessage` before the actual `UserMessage`, welcoming the new member.  
     Hint: If you want, you can do a recursive call to `sendMessage`.
 

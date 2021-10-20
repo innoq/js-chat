@@ -9,13 +9,13 @@ export class Message {
 
     renderHTML() {
         const liElement = document.createElement("li");
-        liElement.innerHTML = this.textBody;
+        liElement.textContent = this.textBody;
         return liElement
     }
 
     static fromJSON(jsonObj) {
         let newMessage;
-        const {textBody, sender} = jsonObj;
+        const { textBody, sender } = jsonObj;
 
         if (sender === undefined) {
             newMessage = new SystemMessage(textBody);
@@ -34,7 +34,9 @@ export class SystemMessage extends Message {
 
     renderHTML() {
         const liElement = document.createElement("li");
-        liElement.innerHTML = `<em> ... ${this.textBody} ... </em>`;
+        const emElement = document.createElement("em");
+        emElement.textContent = ` ... ${this.textBody} ... `;
+        liElement.appendChild(emElement);
         return liElement;
     }
 }
@@ -51,7 +53,11 @@ export class UserMessage extends Message {
 
     renderHTML() {
         const liElement = document.createElement("li");
-        liElement.innerHTML = `<b>${this.sender}</b>: ${this.textBody}`;
+        const bElement = document.createElement("b");
+        bElement.textContent = this.sender;
+        const textElement = document.createTextNode(this.textBody);
+        liElement.appendChild(bElement);
+        liElement.appendChild(textElement);
         return liElement;
     }
 }

@@ -1,14 +1,15 @@
-import {getMessages} from "../services/messages.js";
+import { getMessages } from "../services/messages.js";
 import Chat from "../modules/chat.js";
 
 class MemberList extends HTMLElement {
     connectedCallback() {
         this.headerElement = document.createElement("h2");
-        this.headerElement.innerHTML = "Members";
+        this.headerElement.textContent = "Members";
 
         this.ulElement = document.createElement("ul");
-        this.ulElement.innerHTML = "<li>Dummy</li>";
-
+        const li = document.createElement("li");
+        li.textContent = "Dummy element";
+        this.ulElement.appendChild(li);
         this.appendChild(this.headerElement);
         this.appendChild(this.ulElement);
 
@@ -25,8 +26,13 @@ class MemberList extends HTMLElement {
 
     async updateMembers() {
         const messages = await getMessages();
-        const members = Chat.extractMembers(messages);
-        this.ulElement.innerHTML = members.map(member => `<li>${member}</li>`).join("");
+        const existingMembers = Array.from(this.ulElement.querySelectorAll("li")).textContent;
+        const newMembers = Chat.extractMembers(messages).filter((member) => !existingMembers.includes(member));
+        newMembers.forEach((member) => {
+            const li = document.createElement("li");
+            li.textContent = member;
+            this.ulElement.appendChild(li);
+        });
     }
 }
 
