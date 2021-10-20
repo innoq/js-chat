@@ -24,7 +24,7 @@ Bundle your modules to create a production version of your code.
        Move your `*.html` file into the folder `frontend/dist`.
     2. Install the rollup bundler using `npm install rollup`. See https://rollupjs.org and 
     https://docs.npmjs.com/cli/install for further information
-    3. Bundle your modules to an ESM bundle `dist/bundles.js` using rollup's command line interface (CLI).  Check your 
+    3. Bundle your modules to an ESM bundle `dist/bundle.js` using rollup's command line interface (CLI).  Check your 
     created bundle, if it looks ok.
     Hint 1: The first parameter of `rollup` is your entry point module.  
     Hint 2: You will further need the output (`-o`) and the format (`-f`) option.  
