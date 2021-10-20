@@ -1,7 +1,7 @@
 # Assignment 12 - UI Components
 Encapsulate your member-list in a custom element, that can be reused in different places
 
-1. Define a custom element, register it and use it in you're `index.html`:
+1. Define a custom element, register it and use it in your `index.html`:
     1. Create a new class `MemberList` that extends `HTMLElement` e.g. in `src/components/member-list.js` and import the 
     file at a reasonable point.
     2. Append the header "Member List" as a child of `member-list`, within `MemberList`. Which custom element API can 
